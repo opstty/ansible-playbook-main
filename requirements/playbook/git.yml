@@ -1,0 +1,15 @@
+---
+
+- name: "Ansible Galaxy | Roles | Git | Retrieve requirements"
+  ansible.builtin.include_vars: "{{ playbook_dir }}/{{ item.path }}"
+
+- name: "Ansible Galaxy | Roles | Git | Clone"
+  ansible.builtin.git:
+    repo: "{{ role.src }}"
+    dest: "../../roles/{{ role.name }}"
+    version: "{{ role.version | split('/') | last }}"
+    clone: true
+  loop: "{{ roles | default([]) }}"
+  loop_control:
+    loop_var: role
+    label: "src: {{ role.src }} | version: {{ role.version }}"

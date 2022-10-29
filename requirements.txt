@@ -1,0 +1,6 @@
+ansible==6.5.0
+ansible-compat==2.2.1
+ansible-core==2.13.5
+ansible-lint==6.8.4
+jsonschema==4.16.0
+molecule==4.0.3

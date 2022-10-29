@@ -1,0 +1,58 @@
+---
+
+- name: "Ansible Galaxy | Preriquisites management"
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: "Ansible Galaxy | Retrieve requirements"
+      ansible.builtin.find:
+        paths: "../sources/"
+        patterns: "requirements.yml,requirements.yaml"
+        recurse: true
+      register: _ansible_galaxy_requirements_list
+
+    - name: "Ansible Galaxy | Collections | Retrieve Python requirements"
+      ansible.builtin.find:
+        paths: "../sources/"
+        patterns: "requirements.txt"
+        recurse: true
+      register: _ansible_galaxy_collections_python_requirements_list
+
+    - name: "Ansible Galaxy | Collections | Install Python requirements"
+      ansible.builtin.pip:
+        requirements: "{{ playbook_dir }}/{{ item.path }}"
+        extra_args: --user
+      loop: "{{ _ansible_galaxy_collections_python_requirements_list.files }}"
+      loop_control:
+        label: "{{ item.path }}"
+
+    - name: "Ansible Galaxy | Collections | Install"
+      ansible.builtin.command: ansible-galaxy collection install --collections-path ../../collections/ --requirements-file {{ item.path }} --force
+      loop: "{{ _ansible_galaxy_requirements_list.files }}"
+      loop_control:
+        label: "{{ item.path }}"
+      register: _ansible_galaxy_collections_install_command
+      changed_when: _ansible_galaxy_collections_install_command.rc != 0
+
+    - name: "Ansible Galaxy | Roles | Install"
+      ansible.builtin.command: ansible-galaxy role install --roles-path ../../roles/ --role-file {{ item.path }} --force
+      loop: "{{ _ansible_galaxy_requirements_list.files }}"
+      loop_control:
+        label: "{{ item.path }}"
+      register: _ansible_galaxy_roles_install_command
+      changed_when: _ansible_galaxy_roles_install_command.rc != 0
+      when: "not (git | default('False')) | bool"
+
+    - name: "Ansible Galaxy | Roles | Git"
+      when: "(git | default('False')) | bool"
+      block:
+        - name: "Ansible Galaxy | Roles | Git | Delete directories"
+          ansible.builtin.file:
+            path: "../../roles/"
+            state: absent
+
+        - name: "Ansible Galaxy | Roles | Git | Include tasks"
+          ansible.builtin.include_tasks: git.yml
+          loop: "{{ _ansible_galaxy_requirements_list.files }}"
+          loop_control:
+            label: "{{ item.path }}"
