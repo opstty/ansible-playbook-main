@@ -115,4 +115,4 @@ MIT / BSD
 
 ## Author Information
 
-This role was created in 2022 by [Michael Hatoum](https://www.opstty.com/)
+This playbook was created in 2022 by [Michael Hatoum](https://www.opstty.com/)
