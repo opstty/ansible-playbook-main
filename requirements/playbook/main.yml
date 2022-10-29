@@ -51,6 +51,22 @@
             path: "../../roles/"
             state: absent
 
+        - name: "Ansible Galaxy | Roles | Git | Create `roles` directory"
+          ansible.builtin.file:
+            path: "../../roles/"
+            state: directory
+            mode: '0755'
+
+        - name: "Ansible Galaxy | Roles | Git | Create `roles/.gitignore` file"
+          ansible.builtin.copy:
+            dest: "../../roles/.gitignore"
+            mode: '0744'
+            content: |
+              # Ignore everything in this directory
+              *
+              # Except this file
+              !.gitignore
+
         - name: "Ansible Galaxy | Roles | Git | Include tasks"
           ansible.builtin.include_tasks: git.yml
           loop: "{{ _ansible_galaxy_requirements_list.files }}"
