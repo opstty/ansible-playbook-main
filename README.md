@@ -1,6 +1,6 @@
 # ansible-playbook-main
 
-This Ansible playbook is my base for using differents ansible collections and roles effortlessly.
+This Ansible playbook is a base for using differents ansible collections and roles effortlessly.
 
 ## Installation
 
