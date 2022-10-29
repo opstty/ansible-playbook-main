@@ -109,10 +109,10 @@ Follow thoses steps:
 1. [Setup sources directories](README.md#setup-sources-directories)
 2. [Update the playbook](README.md#update-the-playbook)  
 
-# License
+## License
 
 MIT / BSD
 
 ## Author Information
 
-This role was created in 2022 by [Michael Hatoum](https://www.opstty.com/).
+This role was created in 2022 by [Michael Hatoum](https://www.opstty.com/)
