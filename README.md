@@ -48,12 +48,12 @@ Clone or download this repository to your local drive and change directory.
     ```yaml
     ---
     collections:
-    - opstty.k8s
+      - opstty.k8s
 
     roles:
-    - name: kubernetes
+      - name: kubernetes
         src: https://github.com/opstty/ansible-role-kubernetes
-        version: origin/master
+        version: origin/main
     ```
 
 - `requirements.txt`: Ansible Galaxy collections python requirements;
@@ -92,10 +92,10 @@ ansible-galaxy init ansible-role-name --force
 cd ansible-role-name
 ```
 
-### (Optional): Initialize `molecule` new scenario
+### (Optional): Initialize `molecule` default scenario
 
 ```console
-molecule init scenario --role-name ansible-role-name
+molecule init scenario --role-name ansible-role-name --driver-name docker --verifier-name testinfra
 ```
 
 ### (Optional): Adding a local repository to GitHub using Git
@@ -115,4 +115,4 @@ MIT / BSD
 
 ## Author Information
 
-This playbook was created in 2022 by [Michael Hatoum](https://www.opstty.com/)
+This repository was created in 2022 by [Michael HATOUM](mailto:michael@opstty.com)
