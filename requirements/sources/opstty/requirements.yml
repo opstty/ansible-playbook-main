@@ -1,0 +1,11 @@
+---
+
+collections:
+  - name: community.docker
+    type: galaxy
+    version: 3.0.2
+
+roles:
+  - name: main
+    src: https://github.com/opstty/ansible-role-main
+    version: origin/main

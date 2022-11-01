@@ -4,3 +4,5 @@ ansible-core==2.13.5
 ansible-lint==6.8.4
 jsonschema==4.16.0
 molecule==4.0.3
+molecule-docker==2.1.0
+pytest-testinfra==6.8.0
